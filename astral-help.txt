@@ -1,0 +1,66 @@
+ java -jar astral.4.7.8.jar [--help] (-i|--input) <input file> [(-o|--output) <output file>] [-x|--exact] [(-p|--extraLevel) <extraLevel>] [(-e|--extra) <extra trees>] [(-f|--extra-species) <extra species trees>] [(-q|--score-tree) <score species trees>] [(-b|--bootstraps) <bootstraps>] [(-r|--reps) <replicates>] [(-k|--keep) <keep>] [(-s|--seed) <seed>] [-g|--gene-resampling] [(-a|--namemapfile) <mapping file>] [(-m|--minleaves) <minleaves>] [-d|--dup] [(-l|--duploss) <duploss weight>]
+
+  [--help]
+        Prints this help message.
+
+  (-i|--input) <input file>
+        a file containing input gene trees in newick format. (required)
+
+  [(-o|--output) <output file>]
+        a filename for storing the output species tree. Defaults to outputting
+        to stdout.
+
+  [-x|--exact]
+        find the exact solution by looking at all clusters - recommended only for small (<18) numer of taxa.
+
+  [(-p|--extraLevel) <extraLevel>]
+How much extra bipartitions should be added: 0, 1, or 2. (default: 1)
+0: adds nothing extra. 
+1: adds to X but not excessively (greedy resolutions).
+2: addes a potentially large number and therefore can be slow (quadratic distance-based).
+
+  [(-e|--extra) <extra trees>]
+        provide extra trees (with gene labels) used to enrich the set of clusters searched
+
+  [(-f|--extra-species) <extra species trees>]
+        provide extra trees (with species lables) used to enrich the set of clusters searched
+
+  [(-q|--score-tree) <score species trees>]
+        score the provided species tree and exit
+
+  [(-b|--bootstraps) <bootstraps>]
+perform multi-locus bootstrapping using input bootstrap replicate files (use --rep to change the number of replications). The file given with this option should have a list of the gene tree bootstrap files, one per line, and each line corresponding to one gene. By default performs site-only resampling, but gene/site resampling can also be used.
+
+  [(-r|--reps) <replicates>]
+Set the number of bootstrap replicates done in multi-locus
+bootstrapping.  (default: 100)
+
+  [(-k|--keep) <keep>]
+-k completed: outputs completed gene trees (i.e. after adding missing
+taxa) to a file called [output file name].completed_gene_trees.
+-k bootstraps: outputs individual bootstrap replciates to a file called [output file name].[i].bs
+-k bootstraps_norun: just like -k bootstraps, but exits after outputting bootstraps.
+-k searchspace_norun: outputs the search space and exits; use searchspace to continue the run after outputting the search space.
+When -k option is used, -o option needs to be given. The file name specified using -o is used as the prefix for the name of the extra output files.
+
+  [(-s|--seed) <seed>]
+        Set the seed number used in multi-locus bootstrapping.  (default: 692)
+
+  [-g|--gene-resampling]
+perform gene tree resampling in addition to site resampling. Useful only with the -b option.
+
+  [(-a|--namemapfile) <mapping file>]
+a file containing the mapping between names in gene tree and names in
+the species tree. The mapping file has one line per species, with one of
+two formats:
+species: gene1,gene2,gene3,gene4
+species 4 gene1 gene2 gene3 gene4
+
+  [(-m|--minleaves) <minleaves>]
+        Remove genes with less than specificed number of leaves
+
+  [-d|--dup]
+Solves MGD problem. Minimizes the number duplications required to explain gene trees using DynaDup algorithm (Bayzid, 2011). Note that with this option, DynaDyp would be used *instead of* ASTRAL.
+
+  [(-l|--duploss) <duploss weight>]
+Solves MGDL problem. Minimizes the number duplication and losses required to explain gene trees using DynaDup algorithm. Note that with this option, DynaDyp would be used *instead of* ASTRAL. Use -l 0 for standard (homomorphic) definition, and -l 1 for our new bd definition. Any value in between weights the impact of missing taxa somewhere between these two extremes. -l auto will automaticaly pick this weight.
